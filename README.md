@@ -51,6 +51,58 @@ This package doesn't handle the communication with the API. Check out [notion-ap
 
 🌎 **SSR / Static Generation Support** – Functions to work with NuxtJS and other frameworks
 
+
+## Notion Extension
+
+### Usage
+```js
+const {NotionExtension} = require('./NotionExtension') //only for test, you can find the file in notionServer
+const notionExt = new NotionExtension(process.env.NOTION_SECRET || your_notion_secret_key)
+const page  = await notionExt.getPageWithBlocks({pageId: pageId})
+```
+
+### Explication
+
+A demo result json is in /notionServer/demoPage.json
+
+```js
+notionExt.notion  //is the original notion sdk object
+const page =  await notionExt.getPageWithBlocks({pageId: pageId})
+// get the page and its blocks, and children blocks of blocks...
+const page =  await notionExt.getPageWithBlocks({pageId: pageId, recursive:false})
+// only get blocks of page
+```
+
+### Run test Server
+
+Notion SDK is not support browser, CORS blocks. 
+
+So NotionExtension or Notion SDK works only server-side.
+
+```bash
+export NOTION_SECRET=YOUR_NOTIOIN_SECRET_KEY;npm run notionServer
+```
+
+then in Vue, send a post request to localhost
+
+```js
+const pageId = 'e726171fa05643e08b52ffe276758a9b'
+
+var data = JSON.stringify({ "pageId": pageId });
+
+var config = {
+  method: 'post',
+  url: 'http://localhost:3000/getPageWithBlocks',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  data: data
+};
+
+const res = await axios(config)
+this.blockMap = res.data
+```
+
 ## Install
 
 ### Vue
