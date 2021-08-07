@@ -14,6 +14,7 @@
     "nuxt/*.js"
   ],
   "scripts": {
+    "notionServer": "node notionServer/index.js",
     "serve": "vue-cli-service serve dev/serve.js",
     "example": "nuxt example",
     "example:pack": "npm pack && cd example && npm install && npm install ../*.tgz && npm run build && npm run generate",
@@ -27,8 +28,12 @@
     "prepare": "rm -rf dist *.tgz && npm run build"
   },
   "dependencies": {
+    "@notionhq/client": "^0.2.4",
+    "axios": "^0.21.1",
+    "cors": "^2.8.5",
     "cross-fetch": "^3.0.6",
     "defu": "^5.0.0",
+    "express": "^4.17.1",
     "vue-fragment": "^1.5.1",
     "vue-prism-component": "^1.2.0"
   },
